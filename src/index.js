@@ -1,7 +1,6 @@
-const bankCodes = require('./bankcodes');
+const bankCodes = require('./bankcodes')
 
 const nubanPattern = /(?<bankCode>\d{3})(?<acc>\d{6})(?<check>\d{1})/i
-
 
 /**
  * takes in a nuban number and returns its constituent parts
@@ -9,12 +8,12 @@ const nubanPattern = /(?<bankCode>\d{3})(?<acc>\d{6})(?<check>\d{1})/i
  * @returns {{bankCode?: string, acc?: string, check?: string}|{[p: string]: string}|*}
  */
 function parse(input) {
-    if(!nubanPattern.test(input)) {
-        throw new NubanError('Invalid NUBAN string');
+    if (!nubanPattern.test(input)) {
+        throw new NubanError('Invalid NUBAN string')
     }
 
-    const match = nubanPattern.exec(input);
-    return match.groups;
+    const match = nubanPattern.exec(input)
+    return match.groups
 }
 
 /**
@@ -24,15 +23,15 @@ function parse(input) {
  * @returns {string}
  */
 function stringify(bankCode, serialNumber, separator = null) {
-    if(bankCode.length !== 3) {
+    if (bankCode.length !== 3) {
         throw new NubanError('invalid bank code length')
     }
 
-    if(serialNumber.length !== 6) {
+    if (serialNumber.length !== 6) {
         throw new NubanError('Invalid account serial number length')
     }
 
-    return `${bankCode}${separator}${serialNumber}`;
+    return `${bankCode}${separator}${serialNumber}`
 }
 
 function lookup(nuban) {
@@ -41,12 +40,12 @@ function lookup(nuban) {
 
 class NubanError extends Error {
     constructor(msg) {
-        super(msg);
+        super(msg)
     }
 }
 
 module.exports = {
     parse,
     stringify,
-    lookup
+    lookup,
 }
