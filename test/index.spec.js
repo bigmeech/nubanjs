@@ -15,12 +15,12 @@ describe('v1', () => {
 
         test('should return a nuban number from parts with / as separator', () => {
             const result = nuban.stringify('033', '123456', '/')
-            expect(result).toBe('033/123456')
+            expect(result).toBe('033/123456/9')
         })
 
         test('should return a nuban number from parts with - as separator', () => {
             const result = nuban.stringify('033', '123456', '-')
-            expect(result).toBe('033-123456')
+            expect(result).toBe('033-123456-9')
         })
     })
     describe('lookup', () => {
