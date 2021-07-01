@@ -9,13 +9,17 @@ const nubanPattern = /(?<bankCode>\d{3})(?<acc>\d{6})(?<check>\d{1})/i
  * @returns {*}
  */
 function getCheckDigit(input, spreadValue = '373') {
-    const result = 10 - ((input.split('')
-        .map((char, id) => [char, spreadValue[id % spreadValue.length]])
-        .map(arr => parseInt(arr[0]) * parseInt((arr[1])))
-        .reduce((curr, acc) => curr + acc)) % 10);
+    const result =
+        10 -
+        (input
+            .split('')
+            .map((char, id) => [char, spreadValue[id % spreadValue.length]])
+            .map((arr) => parseInt(arr[0]) * parseInt(arr[1]))
+            .reduce((curr, acc) => curr + acc) %
+            10)
 
-    if(result === 10) return 0
-    return result;
+    if (result === 10) return 0
+    return result
 }
 
 /**
@@ -39,7 +43,7 @@ function parse(input) {
  * @returns {string}
  */
 function stringify(bankCode, serialNumber, separator = null) {
-    const dirtyNuban = bankCode + serialNumber;
+    const dirtyNuban = bankCode + serialNumber
     if (bankCode.length !== 3) {
         throw new NubanError('invalid bank code length')
     }
@@ -47,7 +51,9 @@ function stringify(bankCode, serialNumber, separator = null) {
     if (serialNumber.length !== 6) {
         throw new NubanError('Invalid account serial number length')
     }
-    return `${bankCode}${separator}${serialNumber}${separator}${getCheckDigit(dirtyNuban)}`
+    return `${bankCode}${separator}${serialNumber}${separator}${getCheckDigit(
+        dirtyNuban
+    )}`
 }
 
 function lookup(nuban) {
@@ -64,5 +70,5 @@ module.exports = {
     parse,
     stringify,
     lookup,
-    getCheckDigit
+    getCheckDigit,
 }
