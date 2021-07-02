@@ -9,17 +9,13 @@ const nubanPattern = /(?<bankCode>\d{3})(?<acc>\d{6})(?<check>\d{1})/i
  * @returns {*}
  */
 function getCheckDigit(input, spreadValue = '373') {
-    const result =
-        10 -
-        (input
-            .split('')
+    const result = 10 - (
+        input.split('')
             .map((char, id) => [char, spreadValue[id % spreadValue.length]])
             .map((arr) => parseInt(arr[0]) * parseInt(arr[1]))
-            .reduce((curr, acc) => curr + acc) %
-            10)
-
-    if (result === 10) return 0
-    return result
+            .reduce((curr, acc) => curr + acc) % 10
+    )
+    return (result === 10) ? 0 : result;
 }
 
 /**
